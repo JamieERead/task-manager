@@ -10,5 +10,8 @@
 	},
 	"keywords": [],
 	"author": "",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"@task-manager/types": "workspace:^"
+	}
 }

@@ -1,14 +1,15 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../db";
+import { Column } from "./Column";
 
-export class Task extends Model {
+export class Board extends Model {
   public id!: number;
   public title!: string;
   public description?: string;
-  public status!: string;
+  public columns!: Column[];
 }
 
-Task.init(
+Board.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -23,15 +24,11 @@ Task.init(
       type: DataTypes.TEXT,
       allowNull: true,
     },
-    status: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
   },
   {
     sequelize,
-    modelName: "Task",
-    tableName: "tasks",
+    modelName: "Board",
+    tableName: "boards",
     timestamps: true,
   }
 );
