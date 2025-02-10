@@ -6,15 +6,40 @@ const pubsub = new PubSub();
 
 export const resolvers = {
 	Query: {
-		getBoard: async (id: number) => {
+		getBoard: async (_: any, { id }: {id: number}) => {
+			console.log(id)
+			if (!id) {
+				throw new Error("ID is required!");
+			}
+
 			try {
-				const board = await Board.findAll({ where: { id }, raw: true });
-				return board;
+				const board = await Board.findOne({
+					where: { id },
+					include: [
+						{
+							model: Column,
+							as: 'columns',
+							include: [
+								{
+									model: Task,
+									as: 'tasks',
+								}
+							]
+						}
+					],
+					raw: false,
+				});
+		
+				if (!board) {
+					throw new Error(`Board with ID ${id} not found`);
+				}
+				return board.toJSON();
 			} catch (error) {
-				console.error("Error fetching boards:", error);
+				console.error("Error fetching board:", error);
 				throw new Error("Internal server error");
 			}
 		},
+		
 		getBoards: async () => {
 			try {
 				const boards = await Board.findAll({ include: [{ model: Column, as: "columns" }] });
@@ -54,7 +79,8 @@ export const resolvers = {
 				const boardJson = board.toJSON();
 				const toDoColumn = await Column.create({
 					title: "To Do",
-					boardId: boardJson.id
+					boardId: boardJson.id,
+					order: 0
 				});
 
 				return {

@@ -6,6 +6,8 @@ export class Task extends Model {
   public title!: string;
   public description?: string;
   public status!: string;
+	public columnId!: number;
+	public order!: number;
 }
 
 Task.init(
@@ -26,6 +28,19 @@ Task.init(
     status: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+		order: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+		},
+		columnId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "columns",
+        key: "id",
+      },
+      onDelete: "CASCADE",
     },
   },
   {

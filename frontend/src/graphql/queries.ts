@@ -6,9 +6,26 @@ export const GET_BOARDS = gql`
 			id
 			title
 			description
+		}
+	}
+`;
+
+export const GET_BOARD = gql`
+	query GetBoard($id: ID!){
+		getBoard(id: $id) {
+			id
+			title
+			description
 			columns {
 				id	
+				boardId
 				title
+				order
+				tasks {
+					id
+					title
+					status
+				}
 			}
 		}
 	}

@@ -16,8 +16,10 @@ export const typeDefs = gql`
 
 	type Column {
 		id: ID!
+		boardId: ID!
 		title: String!
 		tasks: [Task!]!
+		order: Int!
 	}
 
 	type Task {
@@ -27,6 +29,7 @@ export const typeDefs = gql`
 		status: String!
 		assignedTo: User
 		columnId: ID!
+		order: Int!
 	}
 
 	type Query {
@@ -37,8 +40,9 @@ export const typeDefs = gql`
 
 	type Mutation {
 		createBoard(title: String!, description: String): Board!
+		createColumn(boardId: ID!, title: String!, orderIndex: Int!): Column!
 		createTask(title: String!, description: String, status: String!): Task!
-		updateTaskColumn(id: ID!, columnId: ID!): Task!
+		updateTask(id: ID!, columnId: ID!): Task!
 	}
 
 	type Subscription {

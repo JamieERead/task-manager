@@ -1,8 +1,13 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../db";
-import { Board } from "./Board";
 
-export class Column extends Board {}
+export class Column extends Model {
+	public id!: number;
+  public title!: string;
+  public description?: string;
+	public boardId!: number;
+	public order!: number;
+}
 
 Column.init(
 	{
@@ -23,6 +28,10 @@ Column.init(
         key: "id"
       },
       onDelete: "CASCADE"
+		},
+		order: {
+			type: DataTypes.INTEGER,
+			allowNull: true,
 		}
 	},
 	{    
