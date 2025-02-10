@@ -23,8 +23,11 @@ export const GET_BOARD = gql`
 				order
 				tasks {
 					id
+					columnId
 					title
+					description
 					status
+					order
 				}
 			}
 		}
@@ -35,9 +38,11 @@ export const GET_TASKS = gql`
 	query {
 		getTasks {
 			id
+			columnId
 			title
 			description
 			status
+			order
 		}
 	}
 `;

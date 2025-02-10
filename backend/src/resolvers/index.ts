@@ -92,13 +92,22 @@ export const resolvers = {
 				throw new Error("Internal server error");
 			}
 		},
-		createTask: async (_: any, { title, description, status }: ITask) => {
-			if (!title || !status) {
-				throw new Error("Title and status are required!");
+		createTask: async (_: any, { title, description, status, order, columnId }: ITask) => {
+			if (!title) {
+				throw new Error("Title is required!");
+			}
+			if (!status) {
+				throw new Error("Status is required!");
+			}
+			if (order === undefined || order === null) {
+				throw new Error("Order is required!");
+			}
+			if (!columnId) {
+				throw new Error("ColumnId is required!");
 			}
 	
 			try {
-				const task = await Task.create({ title, description, status });
+				const task = await Task.create({ title, description, status, order, columnId });
 
 				if (!task) {
 					throw new Error("Failed to create task");
@@ -110,7 +119,9 @@ export const resolvers = {
 					id: task.id ?? 0, // Ensure ID is never null
 					title: task.title || "Untitled Task",
 					description: task.description || "",
-					status: task.status || "Pending"
+					status: task.status || "Pending",
+					order: task.order ?? 0,
+					columnId: task.columnId ?? 0
 				};
 			} catch (error) {
 				console.error("Error creating task:", error);

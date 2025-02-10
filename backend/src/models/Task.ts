@@ -32,6 +32,7 @@ Task.init(
 		order: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
+			defaultValue: 0,
 		},
 		columnId: {
       type: DataTypes.INTEGER,

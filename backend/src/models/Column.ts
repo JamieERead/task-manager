@@ -32,6 +32,7 @@ Column.init(
 		order: {
 			type: DataTypes.INTEGER,
 			allowNull: true,
+			defaultValue: 0,
 		}
 	},
 	{    
