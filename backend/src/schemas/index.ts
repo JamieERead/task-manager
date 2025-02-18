@@ -41,8 +41,8 @@ export const typeDefs = gql`
 	type Mutation {
 		createBoard(title: String!, description: String): Board!
 		createColumn(boardId: ID!, title: String!, orderIndex: Int!): Column!
-		createTask(title: String!, description: String, status: String!, order: Int!, columnId: Int!): Task!
-		updateTask(id: ID!, columnId: ID!): Task!
+		createTask(title: String!, description: String, status: String!, order: Int!, columnId: ID!): Task!
+		updateTask(id: ID!, title: String, description: String, status: String, order: Int, columnId: ID): Task!
 	}
 
 	type Subscription {

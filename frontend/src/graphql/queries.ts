@@ -57,3 +57,16 @@ export const CREATE_TASK = gql`
 		}
 	}
 `;
+
+export const UPDATE_TASK = gql`
+	mutation UpdateTask($taskId: ID!, $title: String, $description: String, $status: String, $order: Int, $columnId: ID) {
+		updateTask(id: $taskId, title: $title, description: $description, status: $status, order: $order, columnId: $columnId) {
+			id
+			title
+			description
+			status
+			order
+			columnId
+		}
+	}
+`;

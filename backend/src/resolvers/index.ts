@@ -127,6 +127,28 @@ export const resolvers = {
 				console.error("Error creating task:", error);
 				throw new Error("Internal server error");
 			}
+		},
+		updateTask: async (_: any, { id, title, description, status, order, columnId }: ITask) => {
+			try {
+				const task = await Task.findByPk(id);
+
+				if(!task) {
+					throw new Error("Task not found");
+				}
+
+				if (title !== undefined) task.title = title;
+				if (description !== undefined) task.description = description;
+				if (status !== undefined) task.status = status;
+				if (order !== undefined) task.order = order;
+				if (columnId !== undefined) task.columnId = columnId;
+
+				await task.save();
+
+				return task.toJSON();
+			} catch (error) {
+				console.error("Error creating task:", error);
+				throw new Error("Internal server error");
+			}
 		}
 	},
 	Subscription: {

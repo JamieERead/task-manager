@@ -13,10 +13,12 @@ export interface IColumn {
 	boardId: number;
 	order: number;
 	tasks: ITask[];
+
+	[Symbol.iterator](): Iterator<IColumn>;
 }
 
 export interface ITask {
-  id?: number; // Optional for when a new task hasn't been saved yet
+  id?: string; // Optional for when a new task hasn't been saved yet
 	columnId: number;
   title: string;
   description?: string;
